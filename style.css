@@ -1,0 +1,167 @@
+* {
+  transition: all 0.2s;
+}
+
+body {
+  margin: 0px;
+}
+
+
+.container {
+  height: 100vh;
+  display: flex;
+  background: rgb(230, 243, 255);
+}
+
+.historyDiv {
+  overflow: scroll;
+  width: 20vw;
+  background: rgb(196, 196, 196);
+  display: flex;
+  flex-direction: column;
+}
+
+
+.history {
+  background-color: #ececec;
+  padding: 10px;
+  border-color: grey;
+  border-width: 1.5px 0px;
+  border-style: solid;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+
+.history:active {
+  background-color: #fffcfc;
+  transform: scale(0.98);
+}
+
+.ans {
+  font-size: 25px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.253);
+}
+
+.exp::before {
+  content: "=";
+}
+
+.exp {
+  padding-top: 5px;
+  font-size: 20px;
+}
+
+.main {
+  margin: 20px auto;
+
+  width: 430px;
+  height: 550px;
+  background: #333;
+  padding: 10px;
+  border-radius: 10px;
+
+  box-shadow: #333 5px 5px 10px;
+  cursor: default;
+}
+
+.display {
+  background: lightblue;
+  display: flex;
+  height: 75px;
+  flex-direction: column;
+  border-radius: 10px;
+
+}
+
+.current {
+  font-size: 20px;
+  padding: 5px;
+  align-self: flex-end;
+  align-items: bottom;
+  font-size: 35px;
+  border: none;
+  background: transparent;
+  cursor: default;
+
+  text-align: right;
+
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.current:focus {
+  outline: none;
+}
+
+.result {
+  padding-right: 5px;
+  font-size: 20px;
+  align-self: flex-end;
+  align-items: bottom;
+}
+
+.buttons {
+  margin-top: 35px;
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+
+}
+
+
+
+
+.btn {
+  border: none;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ececec;
+  font-size: 25px;
+  height: 55px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #f8f8f8;
+  box-shadow: rgb(122, 195, 255) 3px 3px 4px;
+}
+
+.btn:active {
+  color: orangered;
+  box-shadow: darkcyan 3px 1px 4px;
+
+}
+
+.buttonadd {
+  height: auto;
+  grid-column-start: 4;
+  grid-row-start: 3;
+  grid-row-end: 5;
+}
+
+.buttoneq {
+  height: auto;
+  grid-column-start: 4;
+  grid-row-start: 5;
+  grid-row-end: 7;
+}
+
+.button0 {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+@media (max-width: 768px) {
+  .historyDiv {
+    display: none;
+  }
+}
