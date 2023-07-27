@@ -19,11 +19,64 @@ let isCurrent = false;
 let isInput = false;
 let isOperator = false;
 
+let secondOperator = false;
+
 let isDot = false;
 
 let isNumber1 = false;
 
 let isCalculated = false;
+
+
+const equalFunction = () => {
+  isDot = false;
+
+  if (number1 === null && number2 === null) {
+    alert('There is no input')
+    return;
+  }
+  if (number2 === null) {
+    number2 = Number(display.current.textContent);
+  }
+
+
+  display.result.textContent = `= ${number1} ${operator} ${number2}`;
+
+  switch (operator) {
+    case '+':
+      display.current.textContent = number1 + number2;
+      break;
+    case '-':
+      display.current.textContent = number1 - number2;
+      break;
+    case '÷':
+      if (number2 === 0) {
+        alert('Cannot divide by zero')
+        display.current.textContent = 0;
+        break;
+      }
+      display.current.textContent = number1 / number2;
+
+      break;
+    case 'X':
+      display.current.textContent = number1 * number2;
+      break;
+    case '%':
+      display.current.textContent = number1 % number2;
+      break;
+
+    default:
+      break;
+  }
+  ans = Number(display.current.textContent)
+  addHistory();
+  number1 = Number(display.current.textContent);
+
+  isCalculated = true;
+  ans = Number(number1);
+  return ans;
+}
+
 
 
 numberButton.forEach((e) => {
@@ -32,6 +85,7 @@ numberButton.forEach((e) => {
       display.current.textContent = ''
       // return;
     }
+
 
     isCurrent = true;
     isInput = true;
@@ -47,11 +101,10 @@ numberButton.forEach((e) => {
 
     if (isCalculated) {
       display.current.textContent = ''
-      console.log('iscalc');
       isCalculated = false
     }
     if (display.current.textContent.length > 14) {
-      console.log('max');
+      alert('Number size limit is reached')
       return;
     }
 
@@ -63,11 +116,12 @@ numberButton.forEach((e) => {
 operatorButton.forEach((e) => {
   e.addEventListener('click', () => {
 
+
     if (!isOperator) {
 
       isDot = false;
       if (!isInput) {
-        console.log('there is no input');
+        alert('')
         isInput = true;
         return;
       }
@@ -81,69 +135,43 @@ operatorButton.forEach((e) => {
       display.current.textContent = 0;
       display.result.textContent = number1;
       isCurrent = false;
-      console.log(operator);
       isOperator = true;
+
+    }
+    else {
+
+      isDot = false;
+      if (!isInput) {
+        alert('There is no input')
+        isInput = true;
+        return;
+      }
+
+      number2 = Number(display.current.textContent);
+      display.result.textContent = number1 = equalFunction();
+      display.current.textContent = 0;
+      operator = e.textContent;
 
     }
     operator = e.textContent;
 
+
+
+
   })
+
 })
+
+
 
 
 equalButton.addEventListener('click', () => {
-  isDot = false;
+  equalFunction()
   isOperator = false;
-
-  if (number1 === null && number2 === null) {
-    console.log('No input');
-    return;
-  }
-  if (number2 === null) {
-    number2 = Number(display.current.textContent);
-  }
-
-
-  display.result.textContent = `= ${number1} ${operator} ${number2}`;
-
-  switch (operator) {
-    case '+':
-      console.log('add');
-      display.current.textContent = number1 + number2;
-      break;
-    case '-':
-      display.current.textContent = number1 - number2;
-      console.log('sub');
-      break;
-    case '÷':
-      console.log('div');
-      if (number2 === 0) {
-        console.log('cannot divide by zero');
-        display.current.textContent = 0;
-        break;
-      }
-      display.current.textContent = number1 / number2;
-
-      break;
-    case 'X':
-      console.log('mul');
-      display.current.textContent = number1 * number2;
-      break;
-    case '%':
-      display.current.textContent = number1 % number2;
-      console.log('per');
-      break;
-
-    default:
-      break;
-  }
-  ans = Number(display.current.textContent)
-  addHistory();
-  number1 = Number(display.current.textContent);
-
-  isCalculated = true;
-  ans = Number(number1);
 })
+
+
+
 
 
 functionButton.forEach((e) => {
@@ -153,7 +181,6 @@ functionButton.forEach((e) => {
     switch (e.value) {
 
       case 'ac':
-        console.log('ac');
         number1 = null;
         number2 = null;
         ans = null;
@@ -165,11 +192,11 @@ functionButton.forEach((e) => {
         display.current.textContent = display.result.textContent = 0
         histroyDiv.innerHTML = '';
         console.clear()
+        alert('All history is cleared.')
         break;
 
 
       case 'de':
-        console.log('de');
         if (display.current.textContent.length === 1) {
           display.current.textContent = '0'
           isCurrent = true;
@@ -186,9 +213,8 @@ functionButton.forEach((e) => {
 
 
       case 'ans':
-        console.log('ans');
         if (ans === null) {
-          console.log('there is no ans rn');
+          alert('Perform operation first.')
           break;
         }
         display.current.textContent = ans;
@@ -231,11 +257,10 @@ document.addEventListener('keydown', (e) => {
 
     if (isCalculated) {
       display.current.textContent = ''
-      console.log('iscalc');
       isCalculated = false
     }
     if (display.current.textContent.length > 14) {
-      console.log('max');
+      alert('Number size limit is reached')
       return;
     }
 
@@ -250,25 +275,22 @@ document.addEventListener('keydown', (e) => {
       isDot = false;
 
       if (!isInput) {
-        console.log('there is no input');
+        alert('There is no input')
         isInput = true;
         return;
       }
 
       if (e.key === '*') {
         op = 'X'
-        console.log(' op is x');
       } else if (e.key === '/') {
         op = '÷'
       } else {
-
         op = e.key;
       }
       operator = op;
 
       isNumber1 = true;
       number1 = Number(display.current.textContent);
-
 
       display.current.textContent = 0;
       display.result.textContent = number1;
@@ -278,11 +300,9 @@ document.addEventListener('keydown', (e) => {
     } else {
       if (e.key === '*') {
         op = 'X'
-        console.log(' op is x');
       } else if (e.key === '/') {
         op = '÷'
       } else {
-
         op = e.key;
       }
       operator = op;
@@ -298,7 +318,7 @@ document.addEventListener('keydown', (e) => {
     isDot = false;
     isOperator = false;
     if (number1 === null && number2 === null) {
-      console.log('No input');
+      alert('There is no input')
       return;
     }
     if (number2 === null) {
@@ -310,19 +330,16 @@ document.addEventListener('keydown', (e) => {
 
     switch (operator) {
       case '+':
-        console.log('add');
         display.current.textContent = number1 + number2;
         ans = display.current.textContent;
         break;
       case '-':
         display.current.textContent = number1 - number2;
         ans = display.current.textContent;
-        console.log('sub');
         break;
       case '÷':
-        console.log('div');
         if (number2 === 0) {
-          console.log('cannot divide by zero');
+          alert('Cannot divide by zero')
           display.current.textContent = 0;
           break;
         }
@@ -331,14 +348,13 @@ document.addEventListener('keydown', (e) => {
 
         break;
       case 'X':
-        console.log('mul');
         display.current.textContent = number1 * number2;
         ans = display.current.textContent;
         break;
       case '%':
         display.current.textContent = number1 % number2;
         ans = display.current.textContent;
-        console.log('per');
+
         break;
 
       default:
@@ -376,10 +392,4 @@ function addHistory() {
     })
   }
   )
-
-
-
 }
-
-
-
