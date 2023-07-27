@@ -160,6 +160,9 @@ input::-webkit-inner-spin-button {
   grid-column-end: 3;
 }
 
+
+
+
 @media (max-width: 768px) {
   .historyDiv {
     display: none;
